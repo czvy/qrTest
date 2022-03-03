@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>HDMC</title>
-    <link href="/index.css" type="text/css" rel="stylesheet" />
+    <link href="./css/index.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
 
 </head>
@@ -22,18 +22,22 @@
             <div class="videoWrap">
                 <video id="video" class="video"></video>
             </div>
-    
+
             <div class="buttonWrap">
-                <a class="button" id="startButton"><p>스캔</p></a>
-                <a class="button" id="resetButton"><p>리셋</p></a>
+                <a class="button" id="startButton">
+                    <p>스캔</p>
+                </a>
+                <a class="button" id="resetButton">
+                    <p>리셋</p>
+                </a>
             </div>
-    
+
             <div id="sourceSelectPanel" style="display:none">
                 <label for="sourceSelect">Change video source:</label>
                 <select id="sourceSelect" style="max-width:400px">
                 </select>
             </div>
-    
+
             <div style="display: table">
                 <label for="decoding-style"> Decoding Style:</label>
                 <select id="decoding-style" size="1">
@@ -41,10 +45,10 @@
                     <option value="continuously">Decode continuously</option>
                 </select>
             </div>
-    
+
             <label>Result:</label>
             <pre><code id="result"></code></pre>
-    
+
         </section>
     </main>
 
