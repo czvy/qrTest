@@ -19,19 +19,17 @@
 
     <main>
         <section class="container" id="demo-content">
-            <div class="top">
-                <div class="videoWrap">
-                    <video id="video" class="video"></video>
-                </div>
+            <div class="videoWrap">
+                <video id="video" class="video"></video>
+            </div>
 
-                <div class="buttonWrap">
-                    <a class="button" id="startButton">
-                        <p>스캔</p>
-                    </a>
-                    <a class="button" id="resetButton">
-                        <p>종료</p>
-                    </a>
-                </div>
+            <div class="buttonWrap">
+                <a class="button" id="startButton">
+                    <p>스캔</p>
+                </a>
+                <a class="button" id="resetButton">
+                    <p>종료</p>
+                </a>
             </div>
             <!-- <div id="sourceSelectPanel" style="display:none">
                 <label for="sourceSelect">Change video source:</label>
@@ -39,18 +37,21 @@
                 </select>
             </div> -->
 
-            <!-- <div style="display: table">
+            <div style="display: table">
                 <label for="decoding-style"> Decoding Style:</label>
                 <select id="decoding-style" size="1">
                     <option value="once">Decode once</option>
                     <option value="continuously">Decode continuously</option>
                 </select>
-            </div> -->
+            </div>
 
-            <!-- <label>Result:</label>
-            <pre><code id="result"></code></pre> -->
+
 
             <div class="seperate"></div>
+
+            <label>Result:</label>
+            <pre><code id="result"></code></pre>
+
             <div class="productTitle">
                 <p>제품정보</p>
             </div>
@@ -130,6 +131,7 @@
         codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
             console.log(result)
             document.getElementById('result').textContent = result.text
+            codeReader.reset()
         }).catch((err) => {
             console.error(err)
             document.getElementById('result').textContent = err
