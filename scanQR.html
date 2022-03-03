@@ -19,36 +19,77 @@
 
     <main>
         <section class="container" id="demo-content">
-            <div class="videoWrap">
-                <video id="video" class="video"></video>
-            </div>
+            <div class="top">
+                <div class="videoWrap">
+                    <video id="video" class="video"></video>
+                </div>
 
-            <div class="buttonWrap">
-                <a class="button" id="startButton">
-                    <p>스캔</p>
-                </a>
-                <a class="button" id="resetButton">
-                    <p>리셋</p>
-                </a>
+                <div class="buttonWrap">
+                    <a class="button" id="startButton">
+                        <p>스캔</p>
+                    </a>
+                    <a class="button" id="resetButton">
+                        <p>종료</p>
+                    </a>
+                </div>
             </div>
-
-            <div id="sourceSelectPanel" style="display:none">
+            <!-- <div id="sourceSelectPanel" style="display:none">
                 <label for="sourceSelect">Change video source:</label>
                 <select id="sourceSelect" style="max-width:400px">
                 </select>
-            </div>
+            </div> -->
 
-            <div style="display: table">
+            <!-- <div style="display: table">
                 <label for="decoding-style"> Decoding Style:</label>
                 <select id="decoding-style" size="1">
                     <option value="once">Decode once</option>
                     <option value="continuously">Decode continuously</option>
                 </select>
+            </div> -->
+
+            <!-- <label>Result:</label>
+            <pre><code id="result"></code></pre> -->
+
+            <div class="seperate"></div>
+            <div class="productTitle">
+                <p>제품정보</p>
+            </div>
+            <table>
+                <tr>
+                    <td class="title">제품코드</td>
+                    <td style="width:80%;">1</td>
+                </tr>
+                <tr>
+                    <td class="title">제품명</td>
+                    <td>iPhone</td>
+                </tr>
+                <tr>
+                    <td class="title">제조회사</td>
+                    <td>apple</td>
+                </tr>
+
+                <tr>
+                    <td class="title">가격</td>
+                    <td>1,000,000</td>
+                </tr>
+                <tr>
+                    <td class="title">생산일</td>
+                    <td>2022-02-03</td>
+                </tr>
+
+                <!-- <tr>
+                    <td>QR</td>
+                    <td>1</td>
+                </tr> -->
+            </table>
+
+            <div class="buttonWrap">
+                <a class="submitButton">
+                    <p>전송하기</p>
+                </a>
             </div>
 
-            <label>Result:</label>
-            <pre><code id="result"></code></pre>
-
+            <!-- <div class="seperate"></div> -->
         </section>
     </main>
 
