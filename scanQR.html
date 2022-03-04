@@ -76,24 +76,24 @@
             <table>
                 <tr>
                     <td class="title">제품코드</td>
-                    <td style="width:80%;">1</td>
+                    <td style="width:80%;" id="productID"></td>
                 </tr>
                 <tr>
                     <td class="title">제품명</td>
-                    <td>iPhone</td>
+                    <td id="name"></td>
                 </tr>
                 <tr>
                     <td class="title">제조회사</td>
-                    <td>apple</td>
+                    <td id="company"></td>
                 </tr>
 
                 <tr>
                     <td class="title">가격</td>
-                    <td>1,000,000</td>
+                    <td id="cost"></td>
                 </tr>
                 <tr>
                     <td class="title">생산일</td>
-                    <td>2022-02-03</td>
+                    <td id="date"></td>
                 </tr>
 
                 <!-- <tr>
@@ -149,11 +149,20 @@
     function decodeOnce(codeReader, selectedDeviceId) {
         codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
             console.log(result)
-            document.getElementById('result').textContent = result.text
-            codeReader.reset()
-            if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
-            
-            var obj = JSON.parse(result);
+            // document.getElementById('result').textContent = result.text
+
+            try {
+                var obj = JSON.parse(temp);
+                for (var element in obj) {
+                    document.getElementById(element).innerText = obj[element];
+                }
+                codeReader.reset()
+                if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
+            } catch (error) {
+                alert("등록된 QR코드가 아닙니다.")
+            }
+
+
             
 
         }).catch((err) => {
