@@ -37,7 +37,7 @@
 
                 <label><input type="checkbox" name="scan" value='' id="decoding-style"> 연속 스캔하기</label>
 
-                <label><input type="checkbox" name="alarm" value='1' style="margin-top:20px;"> 알림 창 끄기</label>
+                <label><input type="checkbox" name="alarm" value='' id="alertOnOff"> 알림 창 끄기</label>
             </div>
 
 
@@ -65,8 +65,8 @@
 
 
 
-            <!-- <label>Result:</label>
-            <pre><code id="result"></code></pre> -->
+            <label>Result:</label>
+            <pre><code id="result"></code></pre>
             
 
 
@@ -151,6 +151,7 @@
             console.log(result)
             document.getElementById('result').textContent = result.text
             codeReader.reset()
+            if (!document.getElementById('decoding-style').checked) alert("스캔완료");
         }).catch((err) => {
             console.error(err)
             document.getElementById('result').textContent = err
