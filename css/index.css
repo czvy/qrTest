@@ -1,6 +1,7 @@
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
+/* * {margin: 0 auto;font-family: "Noto Sans KR", sans-serif;} */
 * {margin: 0 auto;font-family: "Noto Sans KR", sans-serif;}
 
 
@@ -36,9 +37,19 @@ main .container {width:100%;}
 main .container .videoWrap {display: flex; align-items: center;}
 main .container .videoWrap .video{border: 1px solid gray;width:400px;height:400px}
 
+
+main .container .checkWrap {width:90%;display: flex;flex-direction: column;align-items: center;margin-top: 30px;}
+main .container .checkWrap label {margin-left: 0px;font-size: 32px;}
+main .container .checkWrap input[type="checkbox"] {width: 23px;height: 23px; cursor: pointer;}
+
+
+
 main .container .buttonWrap {width:100%;display: flex; align-items: center;margin-top: 40px;}
 main .container .buttonWrap .button{width:400px;height:80px;display: flex;align-items: center;border: 2px solid #d5d5d5; border-radius: 15px;}
 main .container .buttonWrap .button p {font-size: 32px;}
+
+
+
 
 
 main .container .productTitle{width:100%;display: flex;align-items: center;}
