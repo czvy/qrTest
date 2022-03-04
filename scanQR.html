@@ -24,7 +24,7 @@
             </div>
 
 
-            
+
             <!-- <div style="display: table">
                 <label for="decoding-style"> Decoding Style:</label>
                 <select id="decoding-style" size="1">
@@ -51,7 +51,7 @@
                     <p>종료</p>
                 </a>
             </div>
-            
+
             <!-- <div id="sourceSelectPanel" style="display:none">
                 <label for="sourceSelect">Change video source:</label>
                 <select id="sourceSelect" style="max-width:400px">
@@ -103,7 +103,7 @@
             </table>
 
             <div class="buttonWrap">
-                <a class="submitButton">
+                <a class="submitButton" id="submitButton">
                     <p>전송하기</p>
                 </a>
             </div>
@@ -154,17 +154,27 @@
             try {
                 var obj = JSON.parse(result);
                 for (var element in obj) {
-                    document.getElementById(element).innerText = obj[element];
+                    if (element != "QR") {
+                        if (element == "date") {
+                            document.getElementById(element).innerText = obj[element].split("T")[0];
+                        } else {
+                            document.getElementById(element).innerText = obj[element];
+                        }
+                    }
                 }
-                codeReader.reset()
                 if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
             } catch (error) {
-                codeReader.reset()
                 alert("등록된 QR코드가 아닙니다.")
             }
+            document.getElementById('decoding-style').disabled = false;
+            document.getElementById('alertOnOff').disabled = false;
+
+            document.getElementById('styleLabel').style.opacity = 1;
+            document.getElementById('alertLabel').style.opacity = 1;
+            codeReader.reset()
 
 
-            
+
 
         }).catch((err) => {
             console.error(err)
@@ -178,12 +188,14 @@
             if (result) {
                 // properly decoded qr code
                 console.log('Found QR code!', result)
+                if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
                 //document.getElementById('result').textContent = result.text
 
                 try {
                     var obj = JSON.parse(result);
                     for (var element in obj) {
-                        document.getElementById(element).innerText = obj[element];
+                        if (element != "QR")
+                            document.getElementById(element).innerText = obj[element];
                     }
                     codeReader.reset()
                     if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
@@ -227,23 +239,23 @@
 
         codeReader.getVideoInputDevices()
             .then((videoInputDevices) => {
-//                const sourceSelect = document.getElementById('sourceSelect')
-//                selectedDeviceId = videoInputDevices[0].deviceId
-//                if (videoInputDevices.length >= 1) {
-//                    videoInputDevices.forEach((element) => {
-//                        const sourceOption = document.createElement('option')
-//                        sourceOption.text = element.label
-//                        sourceOption.value = element.deviceId
-//                        sourceSelect.appendChild(sourceOption)
-//                    })
-//
-//                    sourceSelect.onchange = () => {
-//                        selectedDeviceId = sourceSelect.value;
-//                    };
-//
-//                    const sourceSelectPanel = document.getElementById('sourceSelectPanel')
-//                    sourceSelectPanel.style.display = 'block'
-//                }
+                //                const sourceSelect = document.getElementById('sourceSelect')
+                //                selectedDeviceId = videoInputDevices[0].deviceId
+                //                if (videoInputDevices.length >= 1) {
+                //                    videoInputDevices.forEach((element) => {
+                //                        const sourceOption = document.createElement('option')
+                //                        sourceOption.text = element.label
+                //                        sourceOption.value = element.deviceId
+                //                        sourceSelect.appendChild(sourceOption)
+                //                    })
+                //
+                //                    sourceSelect.onchange = () => {
+                //                        selectedDeviceId = sourceSelect.value;
+                //                    };
+                //
+                //                    const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+                //                    sourceSelectPanel.style.display = 'block'
+                //                }
 
 
 
@@ -280,6 +292,13 @@
                     console.log('Reset.')
                 })
 
+
+
+                document.getElementById('submitButton').addEventListener('click', () => {
+                    
+                    // ajax CODE
+                    if (!document.getElementById('alertOnOff').checked) alert("전송완료");
+                })
             })
             .catch((err) => {
                 console.error(err)
