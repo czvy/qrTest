@@ -35,9 +35,9 @@
 
             <div class="checkWrap">
 
-                <label><input type="checkbox" name="scan" value='' id="decoding-style"> 연속 스캔하기</label>
+                <label id="styleLabel"><input type="checkbox" name="scan" value='' id="decoding-style"> 연속 스캔하기</label>
 
-                <label><input type="checkbox" name="alarm" value='' id="alertOnOff"> 알림 창 끄기</label>
+                <label id="alertLabel"><input type="checkbox" name="alarm" value='' id="alertOnOff"> 알림 창 끄기</label>
             </div>
 
 
@@ -152,6 +152,10 @@
             document.getElementById('result').textContent = result.text
             codeReader.reset()
             if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
+            
+            var obj = JSON.parse(result);
+            
+
         }).catch((err) => {
             console.error(err)
             document.getElementById('result').textContent = err
@@ -226,6 +230,12 @@
 
                     const decodingStyle = document.getElementById('decoding-style').checked;
 
+                    document.getElementById('decoding-style').disabled = true;
+                    document.getElementById('alertOnOff').disabled = true;
+
+                    document.getElementById('styleLabel').style.opacity = 0.5;
+                    document.getElementById('alertLabel').style.opacity = 0.5;
+
                     if (decodingStyle) {
                         decodeContinuously(codeReader, selectedDeviceId);
                     } else {
@@ -239,6 +249,12 @@
 
                 document.getElementById('resetButton').addEventListener('click', () => {
                     codeReader.reset()
+                    document.getElementById('decoding-style').disabled = false;
+                    document.getElementById('alertOnOff').disabled = false;
+
+                    document.getElementById('styleLabel').style.opacity = 1;
+                    document.getElementById('alertLabel').style.opacity = 1;
+
                     document.getElementById('result').textContent = '';
                     console.log('Reset.')
                 })
