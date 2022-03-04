@@ -18,6 +18,14 @@
 
 
     <main>
+        <div class="bigWrap">
+            <section class="newAlert" id="tempAlert">
+                <!-- <div class = "alert">
+                        <p class="inText"></p>
+                    </div> -->
+            </section>
+        </div>
+
         <section class="container" id="demo-content">
             <div class="videoWrap">
                 <video id="video" class="video"></video>
@@ -37,7 +45,7 @@
 
                 <label id="styleLabel"><input type="checkbox" name="scan" value='' id="decoding-style"> 연속 스캔하기</label>
 
-                <label id="alertLabel"><input type="checkbox" name="alarm" value='' id="alertOnOff"> 알림 창 끄기</label>
+                <label id="alertLabel"><input type="checkbox" name="alarm" value='' id="alertOnOff"> 팝업 알림 창 끄기</label>
             </div>
 
 
@@ -145,8 +153,65 @@
 <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
 
 <script type="text/javascript">
+    var alertCnt = 0;
+
+    var inter;
+
+    function alert2(pass, text) {
+        console.log("asdf")
+
+        document.getElementById("tempAlert").style.transition = "unset";
+        document.getElementById("tempAlert").style.marginTop = "-200px";
+        clearInterval(inter);
+
+
+        let temp = document.getElementById("tempAlert");
+        temp.innerHTML = "";
+
+        var alertWrap = document.createElement("div");
+        alertWrap.classList.add("alert");
+
+        var alertP = document.createElement("p");
+        alertP.classList.add("inText");
+
+
+        alertP.innerHTML = pass ? "<span class='check'><i class='fas fa-check-circle'></i></span> " : "<span class='times'><i class='fas fa-times-circle'></i></span> ";
+        alertP.innerHTML += text;
+
+        //alertP.innerHTML = '<span class="times"></span><i class="fas fa-check-circle"></i>전송완료'
+        //alertP.innerHTML = "<span class='times'><i class='fas fa-times-circle'></i></span> 등록된 QR코드가 아닙니다.";
+
+
+        console.log(alertP.innerHTML);
+
+        alertWrap.appendChild(alertP);
+        temp.appendChild(alertWrap);
+
+
+        //document.querySelector("main").appendChild(temp);
+
+
+        setTimeout(function () {
+            document.getElementById("tempAlert").style.transition = "all 0.5s";
+            document.getElementById("tempAlert").style.marginTop = "45px";
+
+            inter = setTimeout(function () {
+                document.getElementById("tempAlert").style.marginTop = "-200px";
+            }, 2000)
+
+        }, 1)
+
+
+        alertCnt++;
+    }
+
 
     function decodeOnce(codeReader, selectedDeviceId) {
+        document.getElementById("productID").innerText = "";
+        document.getElementById("name").innerText = "";
+        document.getElementById("company").innerText = "";
+        document.getElementById("cost").innerText = "";
+        document.getElementById("date").innerText = "";
         codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
             console.log(result)
             // document.getElementById('result').textContent = result.text
@@ -162,9 +227,9 @@
                         }
                     }
                 }
-                if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
+                document.getElementById('alertOnOff').checked ? alert2(true, "스캔완료") : alert("스캔완료");
             } catch (error) {
-                alert("등록된 QR코드가 아닙니다.")
+                document.getElementById('alertOnOff').checked ? alert2(false, "등록된 QR코드가 아닙니다.") : alert("등록된 QR코드가 아닙니다.");
             }
             document.getElementById('decoding-style').disabled = false;
             document.getElementById('alertOnOff').disabled = false;
@@ -184,12 +249,17 @@
 
 
     function decodeContinuously(codeReader, selectedDeviceId) {
+        document.getElementById("productID").innerText = "";
+        document.getElementById("name").innerText = "";
+        document.getElementById("company").innerText = "";
+        document.getElementById("cost").innerText = "";
+        document.getElementById("date").innerText = "";
         codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
             if (result) {
                 // properly decoded qr code
                 console.log('Found QR code!', result)
-                if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
-                //document.getElementById('result').textContent = result.text
+                //if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
+                // document.getElementById('result').textContent = result.text
 
                 try {
                     var obj = JSON.parse(result);
@@ -197,10 +267,9 @@
                         if (element != "QR")
                             document.getElementById(element).innerText = obj[element];
                     }
-                    codeReader.reset()
-                    if (!document.getElementById('alertOnOff').checked) alert("스캔완료");
+                    document.getElementById('alertOnOff').checked ? alert2(true, "스캔완료") : alert("스캔완료");
                 } catch (error) {
-                    alert("등록된 QR코드가 아닙니다.")
+                    document.getElementById('alertOnOff').checked ? alert2(false, "등록된 QR코드가 아닙니다.") : alert("등록된 QR코드가 아닙니다.");
                 }
             }
 
@@ -295,9 +364,15 @@
 
 
                 document.getElementById('submitButton').addEventListener('click', () => {
-                    
+
                     // ajax CODE
-                    if (!document.getElementById('alertOnOff').checked) alert("전송완료");
+                    document.getElementById("productID").innerText = "";
+                    document.getElementById("name").innerText = "";
+                    document.getElementById("company").innerText = "";
+                    document.getElementById("cost").innerText = "";
+                    document.getElementById("date").innerText = "";
+
+                    document.getElementById('alertOnOff').checked ? alert2(true, "전송완료") : alert("전송완료");
                 })
             })
             .catch((err) => {
